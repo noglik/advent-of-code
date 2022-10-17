@@ -24,32 +24,40 @@ export const parse = (input: string) =>
     )
   );
 
-export const getNumberOfMultipleOverlaps = (lines: Array<Line>, size = 1000) => {
-  const oceanFloor = Array(size)
-    .fill(null)
-    .map(() => Array(size).fill(0));
+const addCoordinates = (oceanFloor: Record<string, number>, key: string) => {
+  if (key in oceanFloor) {
+    oceanFloor[key] += 1;
+  } else {
+    oceanFloor[key] = 1;
+  }
+
+  return oceanFloor;
+};
+
+const getMinMax = (a: number, b: number) => (a === Math.min(a, b) ? [a, b] : [b, a]);
+
+export const getNumberOfMultipleOverlaps = (lines: Array<Line>) => {
+  let oceanFloor = {} as Record<string, number>;
 
   lines.forEach((line) => {
     // horizontal
     if (line.start.x === line.end.x) {
-      const maxY = Math.max(line.start.y, line.end.y);
-      const minY = Math.min(line.start.y, line.end.y);
+      const [minY, maxY] = getMinMax(line.start.y, line.end.y);
 
       for (let i = minY; i <= maxY; i++) {
-        oceanFloor[line.start.x][i] += 1;
+        oceanFloor = addCoordinates(oceanFloor, `${line.start.x},${i}`);
       }
     }
 
     // vertical
     if (line.start.y === line.end.y) {
-      const maxX = Math.max(line.start.x, line.end.x);
-      const minX = Math.min(line.start.x, line.end.x);
+      const [minX, maxX] = getMinMax(line.start.x, line.end.x);
 
       for (let i = minX; i <= maxX; i++) {
-        oceanFloor[i][line.start.y] += 1;
+        oceanFloor = addCoordinates(oceanFloor, `${i},${line.start.y}`);
       }
     }
   });
 
-  return oceanFloor.reduce((prev, row) => prev + row.filter((point) => point >= 2).length, 0);
+  return Object.values(oceanFloor).filter((overlap) => overlap >= 2).length;
 };
