@@ -41,7 +41,7 @@ const SolveAdvent = () => {
   } 
 
   return (
-    <div id="save-dna" className="mb-wrapper">
+    <div id="solve-advent" className="mb-wrapper">
       <h4>Solve Advent of Code</h4>
       <form onSubmit={handleSubmit} className="form">
         <input type="text" name="input" placeholder="Input*" required className="inp" disabled={loading} />

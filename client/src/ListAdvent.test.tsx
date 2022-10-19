@@ -3,7 +3,7 @@ import ListAdvent from './ListAdvent';
 import { waitForFetch } from './utils/test';
 import { records } from './mocks/handlers';
 
-test('SearchDna', async () => {
+test('ListAdvent', async () => {
   render(<ListAdvent />);
   const searchButton = screen.getByRole('button', { name: "Retrieve" });
 

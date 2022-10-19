@@ -4,7 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "start:prod": "node ./build/index.js",
     "start": "dotenv tsnd ./src/index.ts",
+    "test": "yarn test:unit && yarn test:func",
     "test:unit": "mocha --file './src/mocha-setup.ts' './src/**/*.test.ts'",
     "test:func": "mocha --file './test/mocha-setup.ts' './test/**/*.test.ts'",
     "lint": "eslint ./src"
