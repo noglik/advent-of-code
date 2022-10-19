@@ -1,7 +1,6 @@
 extension: [ts]
 require: [ts-node/register]
 ui: bdd
-reporter: dot
 check-leaks: true
 full-trace: true
 trace-deprecation: true

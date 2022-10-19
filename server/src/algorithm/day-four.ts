@@ -81,5 +81,8 @@ export const playBingo = ({ drawn, boards }: ReturnType<typeof parse>) => {
       }
     }
   }
+
+  // in case there is no winning board
+  return -1;
 };
 
